@@ -1,0 +1,70 @@
+.comment{
+    margin: 30px 0px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.write{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px 0px;
+}
+
+.write>input{
+    flex: 5;
+    padding: 15px;
+    border: none;
+    background-color: var(--inputColor);
+    color: var(--textColor);
+    outline: none;
+    border-radius: 10px;
+}
+
+.write>button{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    color: var(--textColor);
+    background-color: var(--buttonBg);
+}
+
+.write>img{
+    width: 30px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info{
+    flex: 5;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-direction: row;
+}
+
+.info>img{
+    width: 30px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info>span{
+    font-weight: 500;
+}
+
+.info>p{
+    color: var(--textColor)
+}
+
+.date{
+    flex: 1;
+    align-self: center;
+    color: var(--textColor);
+    font-size: 12px;
+}
