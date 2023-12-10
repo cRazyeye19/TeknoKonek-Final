@@ -27,7 +27,9 @@ const RightSide = () =>{
                     <NotificationsActiveOutlinedIcon style={{ color: 'var(--textColor)' }}/>
                 </div>
                 <div className="option">
-                    <QuestionAnswerOutlinedIcon style={{ color: 'var(--textColor)' }}/>
+                    <Link to = '../chat'>
+                        <QuestionAnswerOutlinedIcon style={{ color: 'var(--textColor)' }}/>
+                    </Link>
                 </div>
             </div>
             <TrendCard/>
@@ -40,9 +42,6 @@ const RightSide = () =>{
                 modalOpened={modalOpened}
                 setModalOpened={setModalOpened}
             />
-            <button className="button group-button">
-                <GroupIcon/> Group
-            </button>
         </div>
     )
 }

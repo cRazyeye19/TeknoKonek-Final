@@ -1,51 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Stories.css'
 import Profile from '../../img/profileImg.jpg'
-import { useSelector } from "react-redux";
+import { getAllUser } from '../../api/UserRequest';
 
-const Stories = () =>{
-      //TEMPORARY
-  const stories = [
-    {
-      id: 1,
-      name: "John Doe",
-      img: "https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      img: "https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-    },
-    {
-      id: 3,
-      name: "John Doe",
-      img: "https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-    },
-    {
-      id: 4,
-      name: "John Doe",
-      img: "https://images.pexels.com/photos/13916254/pexels-photo-13916254.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load",
-    },
-  ];
+const Stories = () => {
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER
-  const {user} = useSelector((state)=>state.authReducer.authData)
+  const [persons, setPersons] = useState([])
 
-  return(
+  useEffect(() => {
+    const fetchPersons = async () => {
+      const { data } = await getAllUser();
+      setPersons(data)
+      console.log(data)
+    }
+    fetchPersons();
+  }, []);
+
+  return (
     <div className="stories">
-      <div className="story">
-        <img src={                
-                user.profilePicture
-                ? serverPublic + user.profilePicture
-                : serverPublic + "defaultProfile.png"} alt="" />
-        <span>Baho Bilat</span>
-        <button>+</button>
-      </div>
-        {stories.map(story=>(
-            <div className="story" key={story.id}>
-                <img src={story.img} alt="" />
-                <span>{story.name}</span>
-            </div>
-        ))}
+      {persons.map((person, id) => (
+          <div className="story" key={id}>
+            <img src={person.profilePicture
+              ? serverPublic + person.profilePicture
+              : serverPublic + "defaultProfile.png"} alt="" />
+            <span>{person.firstname} {person.lastname}</span>
+          </div>
+      ))}
     </div>
   )
 }

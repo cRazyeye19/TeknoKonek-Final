@@ -1,29 +1,23 @@
-import mongoose from "mongoose";
-import CommentModel from "../Models/commentModel";
-import PostModel from "../Models/postModel";
+import CommentModel from "../Models/commentModel.js";
 
-//Create Comment
-export const createComment = async(req, res)=>{
+// Create Comment
+export const createComment = async (req, res) => {
     try {
-        const {user, post, text} = req.body;
-        const comment = new CommentModel({user, post, text})
-        await comment.save()
-    
-        await PostModel.findByIdAndUpdate(post, {$push: {comments: comment._id}});
-        res.json(comment);
+        const { text, userId, postId } = req.body;
+        const savedComment = await CommentModel.create({ text, userId, postId });
+        res.status(200).json(savedComment);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Server Error');    
+        res.status(500).json(error);
     }
 }
 
-//Get Comment from Post
-export const getComment = async(req, res)=> {
+// Get all comments for a specific post
+export const getComments = async (req, res) => {
+    const postId = req.params.id;
     try {
-        const comments = await CommentModel.find({postId: req.params.id}).populate('userId')
-        res.json(comments)
+        const comments = await CommentModel.find({ postId });
+        res.status(200).json(comments);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Server Error');
+        res.status(500).json(error);
     }
-}
+};

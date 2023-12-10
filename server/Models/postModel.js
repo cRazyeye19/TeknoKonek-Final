@@ -9,9 +9,9 @@ const postSchema = mongoose.Schema({
     likes: [],
     image: String,
     comments: [{
-        type: String,
-        ref: 'Comments'
-    }],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comments",
+    }]
 },
 {
     timestamps: true,

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './Auth.css'
-import Logo from '../../img/logo.png'
+// import Logo from '../../img/SchoolLogo.png'
+import Logo from '../../img/cit log_1.gif'
 import {useDispatch, useSelector} from 'react-redux'
 import { logIn, signUp } from '../../actions/AuthAction'
 

@@ -1,32 +1,32 @@
-.stories{
+.stories {
     display: flex;
     gap: 10px;
     height: 250px;
     margin-bottom: 10px;
 }
-
-.story{
+  
+.story {
     flex: 1;
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: hidden;
     position: relative;
 }
-
-.story>img{
+  
+.story > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
-
-.story>span{
+  
+.story > span {
     position: absolute;
     bottom: 10px;
     left: 10px;
     color: white;
     font-weight: 500;
 }
-
-.story>button{
+  
+.story > button {
     position: absolute;
     bottom: 40px;
     left: 10px;

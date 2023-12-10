@@ -1,7 +1,7 @@
 import PostModel from "../Models/postModel.js";
 import mongoose from "mongoose";
 import UserModel from "../Models/userModel.js";
-import CommentModel from "../Models/commentModel.js";
+
 
 //Create New Post
 export const createPost = async(req, res) =>{
@@ -88,7 +88,7 @@ export const getTimelinePosts = async (req, res) => {
     const userId = req.params.id;
   
     try {
-      const currentUserPosts = await PostModel.find({ userId: userId });
+      const currentUserPosts = await PostModel.find({ userId: userId }).populate('comments');
       const followingPosts = await UserModel.aggregate([
         {
           $match: {
@@ -113,7 +113,9 @@ export const getTimelinePosts = async (req, res) => {
   
       res
         .status(200)
-        .json(currentUserPosts.concat(...followingPosts[0].followingPosts)
+        .json(
+        currentUserPosts
+        .concat(...followingPosts[0].followingPosts)
         .sort((a,b)=>{
             return b.createdAt - a.createdAt;
         })
@@ -122,31 +124,3 @@ export const getTimelinePosts = async (req, res) => {
       res.status(500).json(error);
     }
 };
-
-//Create Comment
-export const createComment = async(req, res)=>{
-  const id = req.params.id
-  const {userId, text} = req.body
-
-  try {
-    const post = await PostModel.findById(id)
-    if(!post){
-      return res.status(404).json("Post not found!");
-    }
-
-    const newComment = new CommentModel({
-      userId,
-      postId: id,
-      text
-    });
-
-    await newComment.save();
-    post.comments.push(newComment._id);
-    await post.save();
-
-    const populateComment = await newComment.populate("userId").execPopulate();
-    res.status(201).json({comment: populateComment, message: "Comment created successfully"})
-  } catch (error) {
-    res.status(500).json(error)
-  }
-}

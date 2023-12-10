@@ -5,6 +5,7 @@ import ProfileModal from "../ProfileModal/ProfileModal"
 import {useDispatch, useSelector} from "react-redux"
 import {useParams} from "react-router-dom"
 import * as UserApi from '../../api/UserRequest.js'
+import { logOut } from '../../actions/AuthAction.js'
 
 const InfoCard = () =>{
     
@@ -27,10 +28,15 @@ const InfoCard = () =>{
         }
         fetchProfileUSer();
     }, [user])
+
+    const handleLogOut = ()=>{
+        dispatch(logOut())
+    }
     return(
         <div className="InfoCard">
             <div className="infoHead">
                 <h4>Profile Info</h4>
+                {user._id === profileUserId ? (
                 <div className="option"
                 style={{color: "var(--textColor)"}}
                 >
@@ -38,29 +44,30 @@ const InfoCard = () =>{
                 <ProfileModal 
                     modalOpened={modalOpened}
                     setModalOpened={setModalOpened}
+                    data = {user}
                 />
-                </div>
+                </div>) : ("")}
             </div>
 
             <div className="info">
                 <span>
                     <b>Status </b>
                 </span>
-                <span>In Relationship</span>
+                <span>{profileUser.relationship}</span>
             </div>
             <div className="info">
                 <span>
                     <b>Lives in </b>
                 </span>
-                <span>Cebu City</span>
+                <span>{profileUser.livesin}</span>
             </div>
             <div className="info">
                 <span>
                     <b>Course </b>
                 </span>
-                <span>BSCpE</span>
+                <span>{profileUser.worksAt}</span>
             </div>
-            <button className="button logout-button">
+            <button className="button logout-button" onClick={handleLogOut}>
                 Logout
             </button>
         </div>

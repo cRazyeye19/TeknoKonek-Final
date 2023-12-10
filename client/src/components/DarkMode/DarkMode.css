@@ -59,6 +59,7 @@
 .dark_mode_label svg.sun{
     left: 5px;
     fill: #fff;
+    font-weight: 500;
     transition: 0.3s;
 }
 
@@ -66,6 +67,7 @@
     left: 40px;
     fill: #7e7e7e;
     transition: 0.3s;
+    font-weight: 500;
 }
 
 .darkMode_input:checked + .dark_mode_label svg.sun{

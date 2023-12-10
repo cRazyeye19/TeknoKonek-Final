@@ -7,18 +7,16 @@ const commentSchema = mongoose.Schema({
     },
     userId: {
         type: String,
-        ref: 'Users',
         required: true,
     },
     postId: {
         type: String,
-        ref: 'Posts',
         required: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-})
+},
+{
+    timestamps: true,
+}
+)
 var CommentModel = mongoose.model("Comments", commentSchema)
 export default CommentModel
