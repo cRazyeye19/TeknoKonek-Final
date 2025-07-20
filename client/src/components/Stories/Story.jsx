@@ -1,5 +1,5 @@
 import React from "react";
-import "./Stories.css";
+import "./story.css";
 import { UilPlus } from "@iconscout/react-unicons";
 import { useSelector, useDispatch } from "react-redux";
 import { useRef } from "react";

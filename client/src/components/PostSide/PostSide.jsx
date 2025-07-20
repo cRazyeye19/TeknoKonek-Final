@@ -1,13 +1,13 @@
 import React from 'react'
 import './PostSide.css'
 import PostShare from '../PostShare/PostShare'
-import Stories from '../Stories/Stories'
+import Story from '../Stories/Story'
 import Posts from '../Posts/Posts'
 
 const PostSide = () => {
     return (
         <div className="PostSide">
-            <Stories />
+            <Story />
             <PostShare />
             <Posts />
         </div>
