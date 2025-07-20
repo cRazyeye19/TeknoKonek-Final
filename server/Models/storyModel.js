@@ -5,23 +5,21 @@ const StorySchema = mongoose.Schema(
     userId: {
       type: String,
       required: true,
+      unique: true,
     },
-    firstname: {
-      type: String,
-      required: true,
-    },
-    lastname: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: String,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-      expires: 60 * 60 * 24,
-    },
+    stories: [
+      {
+        image: {
+          type: String,
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+          expires: 60 * 60 * 24,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
