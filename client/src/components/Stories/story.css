@@ -67,3 +67,53 @@
 .stories-icon {
   color: white;
 }
+
+.profile-picture-overlay {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.profile-picture-overlay-inner {
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 100%;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.profile-picture-overlay-inner::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(106.23deg, #f99827, #f95f35 100%);
+}
+
+.gradient-text-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  padding: 1rem;
+
+  background: linear-gradient(to top, #000000, rgba(0, 0, 0, 0.7), transparent);
+
+  color: white;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
