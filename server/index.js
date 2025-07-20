@@ -10,6 +10,7 @@ import UploadRoute from './Routes/UploadRoute.js';
 import ChatRoute from './Routes/ChatRoute.js';
 import MessageRoute from './Routes/MessageRoute.js';
 import CommentRoute from './Routes/CommentRoute.js';
+import StoryRoute from './Routes/StoryRoute.js';
 //Routes
 
 const app = express();
@@ -43,3 +44,4 @@ mongoose
   app.use('/chat', ChatRoute)
   app.use('/message', MessageRoute)
   app.use('/comment', CommentRoute)
+  app.use('/story', StoryRoute)
