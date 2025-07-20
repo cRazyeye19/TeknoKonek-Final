@@ -15,11 +15,9 @@ const Stories = () => {
   }, [dispatch]);
 
   return (
-    <div className="stories-container">
-      {/* Create Story Section */}
+    <div className="stories-wrapper">
       <CreateStory />
 
-      {/* Other Users' Stories */}
       {retrievingStories ? (
         <div>Fetching Stories...</div>
       ) : (

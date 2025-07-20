@@ -1,3 +1,10 @@
+.stories-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+
 .stories-container {
   position: relative;
   width: 100%;
