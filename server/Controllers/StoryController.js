@@ -3,12 +3,13 @@ import mongoose from "mongoose";
 
 // Create new Story
 export const createStory = async (req, res) => {
-  const newStory = new StoryModel(req.body);
-
+  const { _id, ...storyData } = req.body;
+  const newStory = new StoryModel(storyData);
   try {
     await newStory.save();
     res.status(200).json(newStory);
   } catch (error) {
+    console.error("Error creating story:", error);
     res.status(500).json(error);
   }
 };

@@ -40,7 +40,7 @@ const StoryCard = ({ data }) => {
           </div>
         </div>
 
-        <div className="gradient-text-container">Lorem Ipsum</div>
+        <div className="gradient-text-container">{data.firstname} {data.lastname}</div>
       </div>
     </div>
   );

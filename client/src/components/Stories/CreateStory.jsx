@@ -22,6 +22,8 @@ const Stories = () => {
   const handleUpload = async (img) => {
     const newStory = {
       userId: user._id,
+      firstname: user.firstname,
+      lastname: user.lastname,
     };
 
     if (img) {
