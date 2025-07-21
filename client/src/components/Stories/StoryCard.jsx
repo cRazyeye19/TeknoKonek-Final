@@ -1,12 +1,14 @@
 import React from "react";
 import "./story.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const StoryCard = ({ data }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
+  const navigate = useNavigate();
   return (
-    <div className="stories-container" style={{ marginLeft: "1rem" }}>
+    <div className="stories-container" style={{ marginLeft: "1rem", cursor: "pointer" }} onClick={() => navigate("/story")}>
       <div className="stories-image-container" style={{ height: "16.5rem" }}>
         <img
           src={
