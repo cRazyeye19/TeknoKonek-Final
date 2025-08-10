@@ -11,7 +11,10 @@ import { getStories } from "../../actions/StoryAction";
 const Sidebar = ({ setCurrentUserId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { allStories, loading, error } = useSelector((state) => state.storyReducer);
+  const { allStories, loading, error } = useSelector(
+    (state) => state.storyReducer
+  );
+  const { user } = useSelector((state) => state.authReducer.authData);
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
@@ -61,20 +64,28 @@ const Sidebar = ({ setCurrentUserId }) => {
         </div>
 
         <h3 className="all-stories-header">All Stories</h3>
-        {allStories.length > 0 ? (
-          allStories.map((userStoryGroup) => (
-            <UserItem
-              key={userStoryGroup.userId}
-              name={`${userStoryGroup.firstname} ${userStoryGroup.lastname}`}
-              newStories={`${userStoryGroup.stories.length} new`}
-              time={new Date(userStoryGroup.stories[0].createdAt).toLocaleTimeString()}
-              imageUrl={serverPublic + userStoryGroup.profilePicture}
-              onClick={() => setCurrentUserId(userStoryGroup.userId)}
-            />
-          ))
-        ) : (
-          <div>No stories from other users.</div>
-        )}
+        {(() => {
+          const otherUsersStories = allStories.filter(
+            (userStoryGroup) => userStoryGroup.userId !== user._id
+          );
+          
+          return otherUsersStories.length > 0 ? (
+            otherUsersStories.map((userStoryGroup) => (
+              <UserItem
+                key={userStoryGroup.userId}
+                name={`${userStoryGroup.firstname} ${userStoryGroup.lastname}`}
+                newStories={`${userStoryGroup.stories.length} new`}
+                time={new Date(
+                  userStoryGroup.stories[0].createdAt
+                ).toLocaleTimeString()}
+                imageUrl={serverPublic + userStoryGroup.profilePicture}
+                onClick={() => setCurrentUserId(userStoryGroup.userId)}
+              />
+            ))
+          ) : (
+            <div>No stories from other users.</div>
+          );
+        })()}
       </div>
     </div>
   );

@@ -1,9 +1,9 @@
 import React from "react";
 import "./story.css";
 
-const UserItem = ({ name, newStories, time, imageUrl }) => {
+const UserItem = ({ name, newStories, time, imageUrl, onClick }) => {
   return (
-    <div className="all-stories-wrapper">
+    <div className="all-stories-wrapper" onClick={onClick} style={{ cursor: 'pointer' }}>
       <div style={{ position: "relative" }}>
         <img src={imageUrl} alt={name} className="all-stories-image" />
       </div>
