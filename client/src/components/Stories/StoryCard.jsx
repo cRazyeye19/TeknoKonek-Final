@@ -30,8 +30,8 @@ const StoryCard = ({ data }) => {
       <div className="stories-image-container" style={{ height: "16.5rem" }}>
         <img
           src={
-            data.image
-              ? serverPublic + data.image
+            data.stories?.[0]?.image
+              ? serverPublic + data.stories[0].image
               : serverPublic + "defaultProfile.png"
           }
           alt="Story"
