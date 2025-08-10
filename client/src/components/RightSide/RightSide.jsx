@@ -3,7 +3,7 @@ import "./RightSide.css";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkMode from "../DarkMode/DarkMode";
 import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
-import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
 import TrendCard from "../TrendCard/TrendCard";
 import IosShareOutlinedIcon from "@mui/icons-material/IosShareOutlined";
 import ShareModal from "../ShareModal/ShareModal";
@@ -15,7 +15,7 @@ const RightSide = () => {
   const iconStyle = {
     color: "var(--textColor)",
     width: "1.5rem",
-    height: "1.5rem"
+    height: "1.5rem",
   };
 
   return (
@@ -39,7 +39,7 @@ const RightSide = () => {
       <TrendCard />
 
       <button className="button r-button" onClick={() => setModalOpened(true)}>
-        <IosShareOutlinedIcon style={iconStyle} /> Share
+        <IosShareOutlinedIcon /> Share
       </button>
       <ShareModal modalOpened={modalOpened} setModalOpened={setModalOpened} />
     </div>
