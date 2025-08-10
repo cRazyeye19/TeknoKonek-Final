@@ -98,7 +98,7 @@ cd server
 npm install
 ```
 
-Create a `.env` file in the `server` directory and add the following:
+Create a `.env` file in the `server` directory and add the following. **Do not commit this file to version control.**
 
 ```
 MONGO_DB="your_mongodb_connection_string"
@@ -126,7 +126,7 @@ cd ../socket
 npm install
 ```
 
-Create a `.env` file in the `socket` directory and add the following:
+Create a `.env` file in the `socket` directory and add the following. **Do not commit this file to version control.**
 
 ```
 CORS_ORIGIN=http://localhost:3000
@@ -150,7 +150,7 @@ cd ../client
 npm install
 ```
 
-Create a `.env` file in the `client` directory and add the following:
+Create a `.env` file in the `client` directory and add the following. **Do not commit this file to version control.**
 
 ```
 REACT_APP_BASE_URL=http://localhost:5000
