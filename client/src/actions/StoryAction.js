@@ -5,6 +5,7 @@ export const uploadStory = (data) => async (dispatch) => {
   try {
     const newStory = await StoryApi.uploadStory(data);
     dispatch({ type: "UPLOAD_STORY_SUCCESS", data: newStory.data });
+    dispatch(getStories());
   } catch (error) {
     console.log(error);
     dispatch({ type: "UPLOAD_STORY_FAIL" });
