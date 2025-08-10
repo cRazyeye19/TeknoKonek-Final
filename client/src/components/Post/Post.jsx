@@ -7,7 +7,6 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { likePost } from "../../api/PostRequest";
-import { Snackbar, Alert } from "@mui/material";
 import { Comments } from "../Comments/Comments";
 import { format } from "timeago.js";
 import { deletePost } from "../../actions/PostAction";
@@ -19,9 +18,6 @@ const Post = ({ data }) => {
   const [likes, setLikes] = useState(data.likes.length);
   const [commentOpen, setCommentOpen] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState("");
 
   const handleLike = () => {
     likePost(data._id, user._id);
@@ -29,25 +25,8 @@ const Post = ({ data }) => {
     liked ? setLikes((prev) => prev - 1) : setLikes((prev) => prev + 1);
   };
 
-  const handleCloseSnackbar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSnackbarOpen(false);
-  };
-
-  const handleDelete = async () => {
-    try {
-      dispatch(deletePost(data._id, user._id));
-      setSnackbarMessage("Post deleted successfully!");
-      setSnackbarSeverity("success");
-      setSnackbarOpen(true);
-    } catch (error) {
-      console.log(error);
-      setSnackbarMessage("Failed to delete post.");
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
-    }
+  const handleDelete = () => {
+    dispatch(deletePost(data._id, user._id));
   };
 
   return (
@@ -105,21 +84,6 @@ const Post = ({ data }) => {
         </div>
       </div>
       {commentOpen && <Comments />}
-
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity={snackbarSeverity}
-          sx={{ width: "100%" }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar>
     </div>
   );
 };
