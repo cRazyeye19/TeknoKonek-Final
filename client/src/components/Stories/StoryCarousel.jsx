@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { UilArrowLeft, UilArrowRight } from "@iconscout/react-unicons";
 
 const StoryCarousel = ({ userStories, currentUserId }) => {

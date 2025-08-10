@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./story.css";
 import Sidebar from "./Sidebar";
 import StoryCarousel from "./StoryCarousel";
@@ -37,7 +37,7 @@ const StoryPage = () => {
   return (
     <>
       <div className="story-page">
-        <Sidebar setCurrentUserId={setCurrentUserId} /> {/* Pass setter to Sidebar */}
+        <Sidebar setCurrentUserId={setCurrentUserId} />
         <StoryCarousel userStories={userStories} currentUserId={currentUserId} /> {/* Pass userStories and currentUserId */}
       </div>
     </>
