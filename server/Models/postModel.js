@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema({
     userId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users",
         required: true
     },
     desc: String,

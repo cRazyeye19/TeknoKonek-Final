@@ -33,3 +33,29 @@
     align-items: center;
     gap: 70px;
 }
+
+.postHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.postHeader .followerImage {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.postHeader .name {
+    flex-grow: 1;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+}
+
+.postTimestamp {
+    font-size: 0.75rem;
+    color: var(--gray);
+}

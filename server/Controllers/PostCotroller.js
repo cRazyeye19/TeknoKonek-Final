@@ -20,7 +20,7 @@ export const getPost = async(req, res)=>{
     const id = req.params.id
 
     try {
-        const post = await PostModel.findById(id)
+        const post = await PostModel.findById(id).populate("userId", "profilePicture firstname lastname");
         res.status(200).json(post)
     } catch (error) {
         res.status(500).json(error)
@@ -88,7 +88,7 @@ export const getTimelinePosts = async (req, res) => {
     const userId = req.params.id;
   
     try {
-      const currentUserPosts = await PostModel.find({ userId: userId }).populate('comments');
+      const currentUserPosts = await PostModel.find({ userId: userId }).populate("userId", "profilePicture firstname lastname").populate('comments');
       const followingPosts = await UserModel.aggregate([
         {
           $match: {

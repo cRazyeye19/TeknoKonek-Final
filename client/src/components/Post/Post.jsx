@@ -8,6 +8,7 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import { useSelector } from 'react-redux';
 import { likePost } from '../../api/PostRequest';
 import { Comments } from '../Comments/Comments';
+import { format } from 'timeago.js';
 
 const Post = ({ data }) => {
     const { user } = useSelector((state) => state.authReducer.authData)
@@ -23,11 +24,18 @@ const Post = ({ data }) => {
     };
     return (
         <div className="Post">
+            <div className="postHeader">
+                <img src={data.userId?.profilePicture ? process.env.REACT_APP_PUBLIC_FOLDER + data.userId.profilePicture : process.env.REACT_APP_PUBLIC_FOLDER + "defaultProfile.png"} alt="Profile" className="followerImage" />
+                <div className="name">
+                    <span>{data.userId?.firstname} {data.userId?.lastname}</span>
+                    <span className="postTimestamp">{format(data.createdAt)}</span>
+                </div>
+                <MoreHorizOutlinedIcon />
+            </div>
             <div className="detail"
                 style={{ color: "var(--textColor)" }}
             >
                 <span style={{ color: "var(--textColor)" }}> {data.desc}</span>
-                <MoreHorizOutlinedIcon />
             </div>
 
             <img src={data.image ? process.env.REACT_APP_PUBLIC_FOLDER + data.image : ""} alt="" />
