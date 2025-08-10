@@ -15,14 +15,21 @@ import StoryRoute from './Routes/StoryRoute.js';
 
 const app = express();
 
-//Serve Images for Public
-app.use(express.static('public'))
-app.use('/images', express.static("images"))
+// Serve static files from the React app's build directory
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-//Middleware
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static('public'));
+app.use('/images', express.static("images"));
+
+// Middleware
 app.use(bodyParser.json({limit: '30mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '30mb', extended: true}));
-app.use(cors())
+app.use(cors());
 dotenv.config();
 
 mongoose
@@ -44,4 +51,9 @@ mongoose
   app.use('/chat', ChatRoute)
   app.use('/message', MessageRoute)
   app.use('/comment', CommentRoute)
-  app.use('/story', StoryRoute)
+  app.use('/story', StoryRoute);
+
+// Handle client-side routing for React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
