@@ -6,6 +6,7 @@ import {UilLocationPoint} from "@iconscout/react-unicons";
 import {UilSchedule} from "@iconscout/react-unicons";
 import {UilTimes} from "@iconscout/react-unicons";
 import { useDispatch, useSelector } from 'react-redux';
+import { Snackbar, Alert } from "@mui/material";
 import { uploadImage, uploadPost } from '../../actions/UploadAction';
 
 const PostShare = () =>{
@@ -16,6 +17,10 @@ const PostShare = () =>{
     const dispatch = useDispatch()
     const desc = useRef()
     const {user} = useSelector((state)=>state.authReducer.authData)
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState("");
+    const [snackbarSeverity, setSnackbarSeverity] = useState("");
+
     const onImageChange =(event)=>{
         if(event.target.files && event.target.files[0]){
             let img = event.target.files[0];
@@ -27,7 +32,15 @@ const PostShare = () =>{
       setImage(null);
       desc.current.value=""
     }
-    const handleSubmit = (e)=>{
+
+    const handleCloseSnackbar = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+      setSnackbarOpen(false);
+    };
+
+    const handleSubmit = async (e)=>{
       e.preventDefault();
 
       const newPost = {
@@ -48,22 +61,32 @@ const PostShare = () =>{
           console.log(error)
         }
       }
-      dispatch(uploadPost(newPost))
+      try {
+        dispatch(uploadPost(newPost));
+        setSnackbarMessage("Post created successfully!");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
+      } catch (error) {
+        console.log(error);
+        setSnackbarMessage("Failed to create post.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
+      }
       reset()
     }
     return (
         <div className="PostShare">
-          <img src={                
+          <img src={
                 user.profilePicture
                 ? serverPublic + user.profilePicture
                 : serverPublic + "defaultProfile.png"} alt="" />
           <div>
-            <input 
+            <input
             ref = {desc}
             required
             type="text" placeholder="What's on your mind" />
             <div className="postOptions">
-              <div className="option" 
+              <div className="option"
               style={{ color: "var(--photo)" }}
               onClick={()=>imageRef.current.click()}
               >
@@ -82,7 +105,7 @@ const PostShare = () =>{
                 <UilSchedule />
                 Schedule
               </div>
-              <button className="button ps-button" 
+              <button className="button ps-button"
               onClick={handleSubmit}
               disabled={loading}
               >
@@ -100,6 +123,19 @@ const PostShare = () =>{
                 </div>
             )}
         </div>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity={snackbarSeverity}
+          >
+            {snackbarMessage}
+          </Alert>
+        </Snackbar>
     </div>
     )
 }

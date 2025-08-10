@@ -8,8 +8,9 @@ export const createPost = async(req, res) =>{
     const newPost = new PostModel(req.body)
 
     try {
-        await newPost.save()
-        res.status(200).json(newPost)
+        const savedPost = await newPost.save();
+        const populatedPost = await PostModel.findById(savedPost._id).populate("userId", "profilePicture firstname lastname");
+        res.status(200).json(populatedPost);
     } catch (error) {
         res.status(500).json(error)
     }
