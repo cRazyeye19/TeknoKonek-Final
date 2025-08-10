@@ -360,7 +360,7 @@
   padding: 1rem;
 }
 
-.carousel-next-button {
+.carousel-prev-button {
   position: absolute;
   left: 1rem;
   z-index: 10;
@@ -372,11 +372,11 @@
   transition: all 0.2s ease-in-out;
 }
 
-.carousel-next-button:hover {
+.carousel-prev-button:hover {
   background-color: rgba(31, 41, 55, 0.75);
 }
 
-.carousel-next-button:focus {
+.carousel-prev-button:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
 }
@@ -458,7 +458,7 @@
   object-fit: cover;
 }
 
-.carousel-prevbutton {
+.carousel-next-button {
   position: absolute;
   right: 1rem;
   z-index: 10;
@@ -470,11 +470,11 @@
   transition: all 0.2s ease-in-out;
 }
 
-.carousel-prevbutton:hover {
+.carousel-next-button:hover {
   background-color: rgba(31, 41, 55, 0.75);
 }
 
-.carousel-prevbutton:focus {
+.carousel-next-button:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
 }

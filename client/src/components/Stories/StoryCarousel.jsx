@@ -1,53 +1,57 @@
-import React, { useEffect } from "react";
-import { UilArrowLeft } from "@iconscout/react-unicons";
-import { UilArrowRight } from "@iconscout/react-unicons";
-import { useDispatch, useSelector } from "react-redux";
-import { getStory } from "../../actions/StoryAction";
+import React, { useEffect, useState } from "react";
+import { UilArrowLeft, UilArrowRight } from "@iconscout/react-unicons";
 
-const StoryCarousel = ({ storyId }) => {
-  const dispatch = useDispatch();
-  const { story, loading, error } = useSelector((state) => state.storyReducer);
+const StoryCarousel = ({ userStories, currentUserId }) => {
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
 
   useEffect(() => {
-    if (storyId) {
-      dispatch(getStory(storyId));
-    }
-  }, [storyId, dispatch]);
+    setCurrentStoryIndex(0);
+  }, [userStories, currentUserId]);
 
-  if (loading) {
-    return <div>Loading Story...</div>;
+  if (!userStories || userStories.length === 0) {
+    return <div>No stories available for this user.</div>;
   }
 
-  if (error) {
-    return <div>Error loading story.</div>;
-  }
-
-  if (!story) {
-    return <div>No story selected or found.</div>;
-  }
-
-  const currentStory = story.stories;
+  const currentStory = userStories[currentStoryIndex];
 
   if (!currentStory) {
-    return <div>No story content available.</div>;
+    return <div>Error: Story not found at current index.</div>;
   }
 
   const createdAt = new Date(currentStory.createdAt).toLocaleString();
 
+  const handleNextStory = () => {
+    setCurrentStoryIndex((prevIndex) => (prevIndex + 1) % userStories.length);
+  };
+
+  const handlePrevStory = () => {
+    setCurrentStoryIndex((prevIndex) =>
+      prevIndex === 0 ? userStories.length - 1 : prevIndex - 1
+    );
+  };
+
   return (
     <div className="story-carousel-background">
-      <button className="carousel-next-button">
-        <UilArrowLeft className="carousel-left" />
-      </button>
+      {userStories.length > 1 && (
+        <button className="carousel-prev-button" onClick={handlePrevStory}>
+          <UilArrowLeft className="carousel-left" />
+        </button>
+      )}
 
       <div className="story-container">
         <div className="story-header">
           <div className="story-header-subcontainer">
             <div className="story-header-textcontainer">
-              <img src={serverPublic + story.userDetails.profilePicture} alt="Story Owner" className="story-ownerpic" />
+              <img
+                src={serverPublic + currentStory.profilePicture}
+                alt="Story Owner"
+                className="story-ownerpic"
+              />
               <div>
-                <p className="story-owner">{story.userDetails.firstname} {story.userDetails.lastname}</p>
+                <p className="story-owner">
+                  {currentStory.firstname} {currentStory.lastname}
+                </p>
                 <p className="story-timestamp">{createdAt}</p>
               </div>
             </div>
@@ -55,13 +59,19 @@ const StoryCarousel = ({ storyId }) => {
         </div>
 
         <div className="story-content">
-          <img src={serverPublic + currentStory.image} alt="Story" className="story-image" />
+          <img
+            src={serverPublic + currentStory.image}
+            alt="Story"
+            className="story-image"
+          />
         </div>
       </div>
 
-      <button className="carousel-prevbutton">
-        <UilArrowRight className="carousel-right" />
-      </button>
+      {userStories.length > 1 && (
+        <button className="carousel-next-button" onClick={handleNextStory}>
+          <UilArrowRight className="carousel-right" />
+        </button>
+      )}
     </div>
   );
 };

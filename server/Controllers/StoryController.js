@@ -94,14 +94,9 @@ export const getStory = async (req, res) => {
         },
       },
       {
-        $addFields: {
-          userIdObjectId: { $toObjectId: "$userId" },
-        },
-      },
-      {
         $lookup: {
           from: "users",
-          localField: "userIdObjectId",
+          localField: "userId",
           foreignField: "_id",
           as: "userDetails",
         },
@@ -123,6 +118,66 @@ export const getStory = async (req, res) => {
     }
   } catch (error) {
     console.error("Error fetching single story:", error);
+    res.status(500).json(error);
+  }
+};
+
+export const getStoriesByUserId = async (req, res) => {
+  const userId = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ error: "Invalid user ID format" });
+  }
+
+  try {
+    const userStories = await StoryModel.aggregate([
+      {
+        $match: {
+          userId: userId,
+        },
+      },
+      {
+        $unwind: "$stories",
+      },
+      {
+        $sort: { "stories.createdAt": -1 },
+      },
+      {
+        $addFields: {
+          userIdObjectId: { $toObjectId: "$userId" },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "userIdObjectId",
+          foreignField: "_id",
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: "$userDetails",
+      },
+      {
+        $project: {
+          _id: "$stories._id",
+          image: "$stories.image",
+          createdAt: "$stories.createdAt",
+          userId: "$userId",
+          firstname: "$userDetails.firstname",
+          lastname: "$userDetails.lastname",
+          profilePicture: "$userDetails.profilePicture",
+        },
+      },
+    ]);
+
+    if (userStories.length > 0) {
+      res.status(200).json(userStories);
+    } else {
+      res.status(404).json({ message: "No stories found for this user." });
+    }
+  } catch (error) {
+    console.error("Error fetching user stories:", error);
     res.status(500).json(error);
   }
 };

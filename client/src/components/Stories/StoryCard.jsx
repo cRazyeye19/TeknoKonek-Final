@@ -8,16 +8,11 @@ const StoryCard = ({ data }) => {
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   const navigate = useNavigate();
 
-  const getStoryId = () => {
-    const id = data?.stories?.[0]?._id;
-    return id || null;
-  };
-
   const handleStoryClick = () => {
-    const storyId = getStoryId();
+    const userId = data?.userId;
     
-    if (storyId) {
-      navigate(`/story?id=${storyId}`);
+    if (userId) {
+      navigate(`/story?id=${userId}`);
     }
   };
 

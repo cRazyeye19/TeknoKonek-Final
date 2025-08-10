@@ -1,13 +1,33 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
+import { useEffect } from "react";
 import { UilTimes } from "@iconscout/react-unicons";
 import { UilPlus } from "@iconscout/react-unicons";
 import Logo from "../../img/SchoolLogo.png";
 import { useNavigate } from "react-router-dom";
 import UserItem from "./UserItem";
+import { useDispatch, useSelector } from "react-redux";
+import { getStories } from "../../actions/StoryAction";
 
-const Sidebar = () => {
+const Sidebar = ({ setCurrentUserId }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { allStories, loading, error } = useSelector((state) => state.storyReducer);
+  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  useEffect(() => {
+    if (allStories.length === 0) {
+      dispatch(getStories());
+    }
+  }, [dispatch, allStories.length]);
+
+  if (loading) {
+    return <div>Loading users with stories...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading users with stories.</div>;
+  }
+
   return (
     <div className="sidebar-wrapper">
       <div className="sidebar-header">
@@ -41,30 +61,20 @@ const Sidebar = () => {
         </div>
 
         <h3 className="all-stories-header">All Stories</h3>
-        <UserItem
-          name="Sheila May Oca"
-          newStories="4 new"
-          time="3h"
-          imageUrl="https://placehold.co/100x100/A78BFA/ffffff?text=SMO"
-        />
-        <UserItem
-          name="John Doe"
-          newStories="4 new"
-          time="3h"
-          imageUrl="https://placehold.co/100x100/A78BFA/ffffff?text=JD"
-        />
-        <UserItem
-          name="Jane Doe"
-          newStories="4 new"
-          time="3h"
-          imageUrl="https://placehold.co/100x100/A78BFA/ffffff?text=JD"
-        />
-        <UserItem
-          name="Lorem Ipsum"
-          newStories="4 new"
-          time="3h"
-          imageUrl="https://placehold.co/100x100/A78BFA/ffffff?text=LI"
-        />
+        {allStories.length > 0 ? (
+          allStories.map((userStoryGroup) => (
+            <UserItem
+              key={userStoryGroup.userId}
+              name={`${userStoryGroup.firstname} ${userStoryGroup.lastname}`}
+              newStories={`${userStoryGroup.stories.length} new`}
+              time={new Date(userStoryGroup.stories[0].createdAt).toLocaleTimeString()}
+              imageUrl={serverPublic + userStoryGroup.profilePicture}
+              onClick={() => setCurrentUserId(userStoryGroup.userId)}
+            />
+          ))
+        ) : (
+          <div>No stories from other users.</div>
+        )}
       </div>
     </div>
   );

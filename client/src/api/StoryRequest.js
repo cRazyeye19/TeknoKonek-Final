@@ -14,3 +14,4 @@ API.interceptors.request.use((req) => {
 export const uploadStory = (data) => API.post("/story", data);
 export const getStories = () => API.get("/story");
 export const getStory = (id) => API.get(`/story/${id}`);
+export const getUserStories = (userId) => API.get(`/story/user/${userId}`);
