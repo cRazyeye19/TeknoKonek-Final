@@ -1,37 +1,37 @@
-.Post{
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    background-color: var(--cardColor);
-    border-radius: 1rem;
-    gap: 1rem;
+.Post {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--cardColor);
+  border-radius: 1rem;
+  gap: 1rem;
 }
 
-.Post>img{
-    width: 100%;
-    max-height: 20rem;
-    object-fit: cover;
-    border-radius: 0.5rem;
+.Post > img {
+  width: 100%;
+  max-height: 20rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
 }
 
-.detail{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.item{
-    color: var(--textColor);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.item {
+  color: var(--textColor);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.info{
-    display: flex;
-    align-items: center;
-    gap: 70px;
+.info {
+  display: flex;
+  align-items: center;
+  gap: 70px;
 }
 
 .postHeader {
@@ -40,22 +40,52 @@
     justify-content: space-between;
 }
 
+.postMenu {
+    position: relative;
+}
+
 .postHeader .followerImage {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
 }
 
 .postHeader .name {
-    flex-grow: 1;
-    font-weight: bold;
-    display: flex;
-    flex-direction: column;
+  flex-grow: 1;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
 }
 
 .postTimestamp {
-    font-size: 0.75rem;
-    color: var(--gray);
+  font-size: 0.75rem;
+  color: var(--gray);
+}
+
+.postMenu {
+  cursor: pointer;
+}
+
+.dropdownMenu {
+  position: absolute;
+  background-color: var(--cardColor);
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+  z-index: 100;
+  right: 0;
+  top: 100%;
+}
+
+.dropdownItem {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: var(--textColor);
+  font-size: 0.9rem;
+}
+
+.dropdownItem:hover {
+  background-color: var(--hrColor);
 }
