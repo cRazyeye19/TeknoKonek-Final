@@ -1,9 +1,7 @@
 import "./story.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const StoryCard = ({ data }) => {
-  const { user } = useSelector((state) => state.authReducer.authData);
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   const navigate = useNavigate();
 
@@ -40,8 +38,8 @@ const StoryCard = ({ data }) => {
           <div className="profile-picture-overlay-inner">
             <img
               src={
-                user.profilePicture
-                  ? serverPublic + user.profilePicture
+                data.profilePicture
+                  ? serverPublic + data.profilePicture
                   : serverPublic + "defaultProfile.png"
               }
               alt="Profile"

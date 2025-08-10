@@ -1,8 +1,8 @@
-import React from "react";
 import "./story.css";
 import { UilPlus } from "@iconscout/react-unicons";
 import { useSelector, useDispatch } from "react-redux";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Snackbar, Alert } from "@mui/material";
 import { uploadStory } from "../../actions/StoryAction";
 import { uploadImage } from "../../actions/UploadAction";
 
@@ -11,6 +11,9 @@ const Stories = () => {
   const dispatch = useDispatch();
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   const imageRef = useRef();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("");
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -34,12 +37,25 @@ const Stories = () => {
       newStory.image = fileName;
       console.log(newStory);
       try {
-        await dispatch(uploadImage(data));
+        dispatch(uploadImage(data));
         dispatch(uploadStory(newStory));
+        setSnackbarMessage("Story created successfully!");
+        setSnackbarSeverity("success");
+        setSnackbarOpen(true);
       } catch (error) {
         console.log(error);
+        setSnackbarMessage("Failed to create story.");
+        setSnackbarSeverity("error");
+        setSnackbarOpen(true);
       }
     }
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   return (
@@ -78,6 +94,21 @@ const Stories = () => {
           </div>
         </div>
       </div>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

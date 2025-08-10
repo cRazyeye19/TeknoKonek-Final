@@ -38,7 +38,7 @@ const StoryPage = () => {
     <>
       <div className="story-page">
         <Sidebar setCurrentUserId={setCurrentUserId} />
-        <StoryCarousel userStories={userStories} currentUserId={currentUserId} /> {/* Pass userStories and currentUserId */}
+        <StoryCarousel userStories={userStories} currentUserId={currentUserId} />
       </div>
     </>
   );
