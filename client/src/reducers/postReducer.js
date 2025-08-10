@@ -15,11 +15,11 @@ const postReducer =(
             return {...state, storyUploading: false, error: false}
         case "UPLOAD_STORY_FAIL":
             return {...state, storyUploading: false, error: true}
-        case "RETREIVING_STORIES_START":
+        case "RETRIEVING_STORIES_START":
             return {...state, retrievingStories: true, error: false}
-        case "RETREIVING_STORIES_SUCCESS":
+        case "RETRIEVING_STORIES_SUCCESS":
             return {...state, stories: action.data, retrievingStories: false, error: false}
-        case "RETREIVING_STORIES_FAIL":
+        case "RETRIEVING_STORIES_FAIL":
             return {...state, retrievingStories: false, error: true}
         default:
             return state
