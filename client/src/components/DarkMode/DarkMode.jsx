@@ -1,40 +1,41 @@
-import React from 'react'
-import './DarkMode.css'
-import { ReactComponent as Sun } from "../../img/Sun.svg";
-import { ReactComponent as Moon } from "../../img/Moon.svg";
+import { useState, useEffect } from "react";
+import "./DarkMode.css";
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 
-const DarkMode = () =>{
-    const setDarkMode = () =>{
-        document.querySelector("body").setAttribute('data-theme', 'dark')
-        localStorage.setItem("selectedTheme", "dark")
-    }
-    const setLightMode = () =>{
-        document.querySelector("body").setAttribute('data-theme', 'light')
-        localStorage.setItem("selectedTheme", "light")
-    }
-    const selectedTheme = localStorage.getItem("selectedTheme");
-    if(selectedTheme==="dark"){
-        setDarkMode();
-    }
-    const toggleTheme = (e) =>{
-        if (e.target.checked) setDarkMode();
-        else setLightMode();
-    }
-    return(
-        <div className="darkMode">
-            <input 
-                className='darkMode_input'
-                type='checkbox'
-                id='darkMode-toggle'
-                onChange={toggleTheme}
-                defaultChecked={selectedTheme==="dark"}
-            />
-            <label className='dark_mode_label' for='darkMode-toggle'>
-                <Sun />
-                <Moon />
-            </label>
-        </div>
-    )
-}
+const DarkMode = () => {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("selectedTheme") || "light"
+  );
 
-export default DarkMode 
+  const setDarkMode = () => {
+    document.querySelector("body").setAttribute("data-theme", "dark");
+    localStorage.setItem("selectedTheme", "dark");
+    setTheme("dark");
+  };
+  const setLightMode = () => {
+    document.querySelector("body").setAttribute("data-theme", "light");
+    localStorage.setItem("selectedTheme", "light");
+    setTheme("light");
+  };
+
+  useEffect(() => {
+    if (theme === "dark") {
+      setDarkMode();
+    } else {
+      setLightMode();
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    if (theme === "dark") setLightMode();
+    else setDarkMode();
+  };
+  return (
+    <div className="option" onClick={toggleTheme}>
+      {theme === "dark" ? <DarkModeOutlinedIcon style={{ color: "var(--textColor)" }} /> : <LightModeOutlinedIcon />}
+    </div>
+  );
+};
+
+export default DarkMode;

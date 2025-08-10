@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import "./story.css";
-import Sidebar from "./Sidebar";
-import StoryCarousel from "./StoryCarousel";
+import "../../components/Stories/story.css";
+import Sidebar from "../../components/Stories/Sidebar";
+import StoryCarousel from "../../components/Stories/StoryCarousel";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserStories } from "../../actions/StoryAction";
@@ -9,7 +9,9 @@ import { getUserStories } from "../../actions/StoryAction";
 const StoryPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { userStories, loading, error } = useSelector((state) => state.storyReducer);
+  const { userStories, loading, error } = useSelector(
+    (state) => state.storyReducer
+  );
   const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
@@ -38,7 +40,10 @@ const StoryPage = () => {
     <>
       <div className="story-page">
         <Sidebar setCurrentUserId={setCurrentUserId} />
-        <StoryCarousel userStories={userStories} currentUserId={currentUserId} />
+        <StoryCarousel
+          userStories={userStories}
+          currentUserId={currentUserId}
+        />
       </div>
     </>
   );

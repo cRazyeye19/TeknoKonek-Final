@@ -5,7 +5,8 @@ import Auth from "./pages/Auth/Auth"
 import Chat from "./pages/Chat/Chat"
 import {Routes, Route, Navigate} from 'react-router-dom';
 import { useSelector } from "react-redux";
-import StoryPage from "./components/Stories/StoryPage";
+import StoryPage from "./pages/Story/StoryPage";
+
 function App() {
   const user = useSelector((state)=>state.authReducer.authData)
   return (
