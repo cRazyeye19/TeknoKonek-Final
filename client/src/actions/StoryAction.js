@@ -21,3 +21,14 @@ export const getStories = () => async (dispatch) => {
     dispatch({ type: "RETREIVING_STORIES_FAIL" });
   }
 };
+
+export const getStory = (id) => async (dispatch) => {
+  dispatch({ type: "GET_STORY_START" });
+  try {
+    const { data } = await StoryApi.getStory(id);
+    dispatch({ type: "GET_STORY_SUCCESS", data: data });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "GET_STORY_FAIL" });
+  }
+};

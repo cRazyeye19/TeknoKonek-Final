@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./story.css";
 import Sidebar from "./Sidebar";
+import StoryCarousel from "./StoryCarousel";
+import { useLocation } from "react-router-dom";
 
 const StoryPage = () => {
+  const location = useLocation();
+  const [storyId, setStoryId] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
+    setStoryId(id);
+  }, [location]);
+
   return (
     <>
       <div className="story-page">
         <Sidebar />
-        <h3>Story Page</h3>
+        <StoryCarousel storyId={storyId} />
       </div>
     </>
   );

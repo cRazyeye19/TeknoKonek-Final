@@ -7,8 +7,26 @@ const StoryCard = ({ data }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
   const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   const navigate = useNavigate();
+
+  const getStoryId = () => {
+    const id = data?.stories?.[0]?._id;
+    return id || null;
+  };
+
+  const handleStoryClick = () => {
+    const storyId = getStoryId();
+    
+    if (storyId) {
+      navigate(`/story?id=${storyId}`);
+    }
+  };
+
   return (
-    <div className="stories-container" style={{ marginLeft: "1rem", cursor: "pointer" }} onClick={() => navigate("/story")}>
+    <div
+      className="stories-container"
+      style={{ marginLeft: "1rem", cursor: "pointer" }}
+      onClick={handleStoryClick}
+    >
       <div className="stories-image-container" style={{ height: "16.5rem" }}>
         <img
           src={
