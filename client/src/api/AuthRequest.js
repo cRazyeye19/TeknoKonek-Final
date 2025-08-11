@@ -2,7 +2,7 @@ import axios from "axios";
 import store from "../store/ReduxStore";
 import { logOut } from "../actions/AuthAction";
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
+const API = axios.create({ baseURL: process.env.REACT_APP_API_URL || "http://localhost:5000"});
 
 API.interceptors.response.use(
   (response) => response,
