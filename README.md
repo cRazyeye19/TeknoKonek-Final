@@ -101,9 +101,14 @@ npm install
 Create a `.env` file in the `server` directory and add the following. **Do not commit this file to version control.**
 
 ```
-MONGO_DB="your_mongodb_connection_string"
-PORT=5000
-JWT_KEY="your_jwt_secret_key"
+MONGO_DB="<your_mongo_db_connection_string>" # MongoDB connection URI (e.g., from MongoDB Atlas or local instance)
+PORT="<your_port>" # Port for the backend server to listen on (e.g., 5000)
+JWT_KEY="<your_jwt_key>" # A strong, random string for JWT authentication
+EMAIL_HOST="<your_email_host>" # Host for the email service (e.g., smtp.gmail.com)
+EMAIL_PORT="<your_email_port>" # Port for the email service (e.g., 587 for TLS)
+EMAIL_USER="<your_email_user>" # Username for the email service
+EMAIL_PASS="<your_email_pass>" # Password for the email service
+EMAIL_FROM="<your_email_from>" # Email address to send from
 ```
 Replace `your_mongodb_connection_string` with your MongoDB URI (e.g., from MongoDB Atlas or your local instance).
 You can choose any port, e.g., `5000`.
@@ -129,7 +134,8 @@ npm install
 Create a `.env` file in the `socket` directory and add the following. **Do not commit this file to version control.**
 
 ```
-CORS_ORIGIN=http://localhost:3000
+CORS_ORIGIN="<your_CORS_origin_here>" # The origin URL of your client application (e.g., http://localhost:3000)
+PORT="<your_port_here>" # Port for the Socket.io server to listen on (e.g., 8800)
 ```
 This should match the origin of your client application.
 
@@ -153,8 +159,9 @@ npm install
 Create a `.env` file in the `client` directory and add the following. **Do not commit this file to version control.**
 
 ```
-REACT_APP_BASE_URL=http://localhost:5000
-REACT_APP_SOCKET_URL=http://localhost:8800
+REACT_APP_PUBLIC_FOLDER="<path_to_public_folder>" # Path to the public assets folder (e.g., /public)
+REACT_APP_API_URL="<your_api_url>" # URL of the backend API server (e.g., http://localhost:5000)
+REACT_APP_SOCKET_URL="<your_socket_url>" # URL of the Socket.io server (e.g., http://localhost:8800)
 ```
 Ensure `REACT_APP_BASE_URL` matches your backend server's address and `REACT_APP_SOCKET_URL` matches your socket server's address.
 
