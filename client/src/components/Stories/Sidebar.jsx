@@ -15,7 +15,6 @@ const Sidebar = ({ setCurrentUserId }) => {
     (state) => state.storyReducer
   );
   const { user } = useSelector((state) => state.authReducer.authData);
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
 
   useEffect(() => {
     if (allStories.length === 0) {
@@ -68,7 +67,7 @@ const Sidebar = ({ setCurrentUserId }) => {
           const otherUsersStories = allStories.filter(
             (userStoryGroup) => userStoryGroup.userId !== user._id
           );
-          
+
           return otherUsersStories.length > 0 ? (
             otherUsersStories.map((userStoryGroup) => (
               <UserItem
@@ -78,7 +77,7 @@ const Sidebar = ({ setCurrentUserId }) => {
                 time={new Date(
                   userStoryGroup.stories[0].createdAt
                 ).toLocaleTimeString()}
-                imageUrl={serverPublic + userStoryGroup.profilePicture}
+                imageUrl={userStoryGroup.profilePicture}
                 onClick={() => setCurrentUserId(userStoryGroup.userId)}
               />
             ))

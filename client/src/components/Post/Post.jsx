@@ -33,11 +33,7 @@ const Post = ({ data }) => {
     <div className="Post">
       <div className="postHeader">
         <img
-          src={
-            data.userId?.profilePicture
-              ? process.env.REACT_APP_PUBLIC_FOLDER + data.userId.profilePicture
-              : process.env.REACT_APP_PUBLIC_FOLDER + "defaultProfile.png"
-          }
+          src={data.userId?.profilePicture}
           alt="Profile"
           className="followerImage"
         />
@@ -64,10 +60,7 @@ const Post = ({ data }) => {
         <span style={{ color: "var(--textColor)" }}> {data.desc}</span>
       </div>
 
-      <img
-        src={data.image ? process.env.REACT_APP_PUBLIC_FOLDER + data.image : ""}
-        alt=""
-      />
+      <img src={data.image} alt="" />
 
       <div className="info">
         <div className="item" onClick={handleLike}>

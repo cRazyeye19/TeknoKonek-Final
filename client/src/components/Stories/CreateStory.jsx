@@ -9,7 +9,6 @@ import { uploadImage } from "../../actions/UploadAction";
 const Stories = () => {
   const { user } = useSelector((state) => state.authReducer.authData);
   const dispatch = useDispatch();
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   const imageRef = useRef();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -37,7 +36,8 @@ const Stories = () => {
       newStory.image = fileName;
       console.log(newStory);
       try {
-        dispatch(uploadImage(data));
+        const imageUrl = await dispatch(uploadImage(data));
+        newStory.image = imageUrl;
         dispatch(uploadStory(newStory));
         setSnackbarMessage("Story created successfully!");
         setSnackbarSeverity("success");
@@ -62,16 +62,12 @@ const Stories = () => {
     <div className="stories-container">
       <div className="stories-image-container">
         <img
-          src={
-            user.profilePicture
-              ? serverPublic + user.profilePicture
-              : serverPublic + "defaultProfile.png"
-          }
+          src={user.profilePicture}
           alt="Profile"
           className="stories-image"
           onError={(e) => {
             e.target.onerror = null;
-            e.target.src = serverPublic + "defaultProfile.png";
+            e.target.src = "defaultProfile.png";
           }}
         />
       </div>
@@ -80,7 +76,10 @@ const Stories = () => {
         <p className="stories-text">Create a Story</p>
 
         <div className="stories-button-container">
-          <button className="stories-button" onClick={() => imageRef.current.click()}>
+          <button
+            className="stories-button"
+            onClick={() => imageRef.current.click()}
+          >
             <UilPlus className="stories-icon" />
           </button>
           <div style={{ display: "none" }}>

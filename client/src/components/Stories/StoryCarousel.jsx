@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { UilArrowLeft, UilArrowRight } from "@iconscout/react-unicons";
 
 const StoryCarousel = ({ userStories, currentUserId }) => {
-  const serverPublic = process.env.REACT_APP_PUBLIC_FOLDER;
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const StoryCarousel = ({ userStories, currentUserId }) => {
           <div className="story-header-subcontainer">
             <div className="story-header-textcontainer">
               <img
-                src={serverPublic + currentStory.profilePicture}
+                src={currentStory.profilePicture}
                 alt="Story Owner"
                 className="story-ownerpic"
               />
@@ -59,11 +58,7 @@ const StoryCarousel = ({ userStories, currentUserId }) => {
         </div>
 
         <div className="story-content">
-          <img
-            src={serverPublic + currentStory.image}
-            alt="Story"
-            className="story-image"
-          />
+          <img src={currentStory.image} alt="Story" className="story-image" />
         </div>
       </div>
 
