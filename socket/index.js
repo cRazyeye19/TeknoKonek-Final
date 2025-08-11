@@ -1,9 +1,14 @@
+import { createServer } from "http";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const io = new Server(process.env.PORT || 8800, {
+const PORT = process.env.PORT || 8800;
+
+const httpServer = createServer();
+
+const io = new Server(httpServer, {
   cors: {
     origin: process.env.CORS_ORIGIN || "http://localhost:3000",
   },
@@ -40,8 +45,8 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 8000;
-io.listen(PORT);
-console.log(`Socket server running on port ${PORT}`);
-console.log("CORS_ORIGIN:", process.env.CORS_ORIGIN);
-console.log("PORT:", process.env.PORT);
+httpServer.listen(PORT, () => {
+  console.log(`Socket server running on port ${PORT}`);
+  console.log("CORS_ORIGIN:", process.env.CORS_ORIGIN);
+  console.log("PORT:", PORT);
+});
